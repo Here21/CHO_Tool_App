@@ -1,1 +1,4 @@
-import '/imports/startup/server';
+// import '/imports/startup/server';
+import methods from './methods';
+
+methods();
