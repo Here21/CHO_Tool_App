@@ -15,7 +15,6 @@ export default function () {
   Meteor.startup(() => {
     WebApp.connectHandlers.use('/wechat', wechat(config,
       wechat.text((message, req, res, next) => {
-      console.log(message)
         api.getUser({ openid: message.FromUserName, lang: 'en' }, (e, r) => {
           console.log(r)
           res.reply(r.nickname);
