@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
 import wechat from 'wechat';
 import WechatAPI from 'wechat-api';
 
@@ -14,6 +15,7 @@ export default function () {
   Meteor.startup(() => {
     WebApp.connectHandlers.use('/wechat', wechat(config,
       wechat.text((message, req, res, next) => {
+      console.log(message)
         api.getUser({ openid: message.FromUserName, lang: 'en' }, (e, r) => {
           console.log(r)
           res.reply(r.nickname);
@@ -48,15 +50,12 @@ export default function () {
         // Format: 'amr',
         // MsgId: '5837397520665436492' }
       })
-      .event((message, req, res, next) => {
+      .event(Meteor.bindEnvironment((message, req, res, next) => {
         if (message.Event === 'subscribe') {
-          console.log('Subscribe');
+          Accounts.createUser({ username: message.FromUserName, createdAt: new Date() });
           res.reply('欢迎您使用碳氢氧膳食公众号');
-        } else if (message.Event === 'unsubscribe') {
-          console.log('Subscribe');
-          res.reply('欢迎您不使用碳氢氧膳食公众号');
         }
-      })
+      }))
       // .device_text((message, req, res, next) => {
       //   console.log(message)
       //   // TODO

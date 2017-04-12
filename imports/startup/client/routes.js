@@ -6,7 +6,7 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 
 import App from '../../ui/layouts/App.js';
-import Index from '../../ui/pages/Index.js';
+import HomePage from '../../ui/pages/HomePage';
 import NotFound from '../../ui/pages/NotFound.js';
 
 const authenticate = (nextState, replace) => {
@@ -22,7 +22,7 @@ Meteor.startup(() => {
   render(
     <Router history={ browserHistory }>
       <Route path="/" component={ App }>
-        <IndexRoute name="index" component={ Index } />
+        <IndexRoute name="index" component={ HomePage } />
         <Route path="*" component={ NotFound } />
       </Route>
     </Router>,

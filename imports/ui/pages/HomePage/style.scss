@@ -1,0 +1,18 @@
+.home-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .home-page-userinfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 10rem;
+    height: 10rem;
+    img {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+    }
+  }
+}
