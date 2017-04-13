@@ -1,16 +1,21 @@
 import { Meteor } from 'meteor/meteor';
 import { composeWithTracker } from 'react-komposer';
-import Documents from '../../api/documents/documents.js';
+
+// import Documents from '../../api/documents/documents.js';
 import HomePage from '../pages/HomePage';
 import Loading from '../components/Loading.js';
 
 const composer = ({ params }, onData) => {
-  const subscription = Meteor.subscribe('documents.view', params._id);
+  const redirect = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${Meteor.settings.public.wechatAppId}`
+    + `&redirect_uri=${encodeURIComponent(window.location.origin + window.location.pathname)}`
+    + '&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect';
+  console.log(redirect);
+  onData(null, { });
 
-  if (subscription.ready()) {
-    const doc = Documents.findOne(params._id);
-    onData(null, { doc });
-  }
+  // if (subscription.ready()) {
+  //   const doc = Documents.findOne(params._id);
+  //   onData(null, { doc });
+  // }
 };
 
-export default composeWithTracker(composer, Loading)(HomePage);
+export default composeWithTracker(composer)(HomePage);

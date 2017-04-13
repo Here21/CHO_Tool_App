@@ -2,7 +2,9 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import wechat from 'wechat';
 import WechatAPI from 'wechat-api';
+// import OAuth from 'wechat-oauth';
 
+// const client = new OAuth(Meteor.settings.public.WechatAppId, Meteor.settings.public.WechatAppSecret);
 const api = new WechatAPI(Meteor.settings.public.WechatAppId, Meteor.settings.public.WechatAppSecret);
 
 const config = {

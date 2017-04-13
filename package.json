@@ -72,6 +72,7 @@
     "react-komposer": "^1.13.1",
     "react-router": "^3.0.0",
     "wechat": "^2.1.0",
-    "wechat-api": "^1.32.1"
+    "wechat-api": "^1.32.1",
+    "wechat-oauth": "^1.2.1"
   }
 }
