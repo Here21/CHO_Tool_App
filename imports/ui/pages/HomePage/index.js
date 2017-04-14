@@ -4,12 +4,12 @@ import './style.scss';
 
 class HomePage extends Component {
   componentDidMount() {
-    const redirect = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${Meteor.settings.public.WechatAppId}`
-      + `&redirect_uri=${encodeURIComponent(window.location.origin + window.location.pathname)}`
-      + '&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect';
-    console.log(redirect);
-    // browserHistory.replace(redirect);
-    window.location.href = redirect;
+    // const redirect = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${Meteor.settings.public.WechatAppId}`
+    //   + `&redirect_uri=${encodeURIComponent(window.location.origin + window.location.pathname)}`
+    //   + '&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect';
+    // console.log(redirect);
+    // // browserHistory.replace(redirect);
+    // window.location.href = redirect;
   }
 
   render() {

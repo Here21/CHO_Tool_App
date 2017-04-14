@@ -2,9 +2,9 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import wechat from 'wechat';
 import WechatAPI from 'wechat-api';
-// import OAuth from 'wechat-oauth';
+import OAuth from 'wechat-oauth';
 
-// const client = new OAuth(Meteor.settings.public.WechatAppId, Meteor.settings.public.WechatAppSecret);
+const client = new OAuth(Meteor.settings.public.WechatAppId, Meteor.settings.public.WechatAppSecret);
 const api = new WechatAPI(Meteor.settings.public.WechatAppId, Meteor.settings.public.WechatAppSecret);
 
 const config = {
@@ -15,6 +15,26 @@ const config = {
 
 export default function () {
   Meteor.startup(() => {
+    WebApp.connectHandlers.use('/', (req, res, next) => {
+      // const callBackUrl = encodeURIComponent(`http://${req.headers.host}${req.originalUrl}`);
+      // console.log(callBackUrl)
+      const url = client.getAuthorizeURL('http://www.100th.top/test', '', 'snsapi_userinfo');
+      res.writeHead(302, { Location: url });
+      res.end();
+    });
+
+    // WebApp.connectHandlers.use('/', wechat(config, (req, res, next) => {
+    //   const callBackUrl = encodeURIComponent(`http://${req.headers.host}${req.originalUrl}`);
+    //   console.log(callBackUrl)
+    //   // const url = client.getAuthorizeURL('http://www.100th.top/test', '', 'snsapi_base');
+    //   // res.writeHead(302, { Location: url });
+    //   // res.end();
+    // }));
+
+    WebApp.connectHandlers.use('/test', (req, res, next) => {
+      console.log('into test');
+    });
+
     WebApp.connectHandlers.use('/wechat', wechat(config,
       wechat.text((message, req, res, next) => {
         api.getUser({ openid: message.FromUserName, lang: 'en' }, (e, r) => {
