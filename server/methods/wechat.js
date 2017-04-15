@@ -38,7 +38,7 @@ export default function () {
     WebApp.connectHandlers.use('/wechat', wechat(config,
       wechat.text((message, req, res, next) => {
         api.getUser({ openid: message.FromUserName, lang: 'en' }, (e, r) => {
-          console.log(r)
+          console.log(r);
           res.reply(r.nickname);
         });
         // message为文本内容
@@ -50,7 +50,7 @@ export default function () {
         // MsgId: '5837397576500011341' }
       })
       .image((message, req, res, next) => {
-        res.reply('收到图片')
+        res.reply('收到图片');
           // message为图片内容
         // { ToUserName: 'gh_d3e07d51b513',
         // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
@@ -61,7 +61,7 @@ export default function () {
         // MsgId: '5837397301622104395' }
       })
       .voice((message, req, res, next) => {
-        res.reply('收到语音')
+        res.reply('收到语音');
           // message为音频内容
         // { ToUserName: 'gh_d3e07d51b513',
         // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
