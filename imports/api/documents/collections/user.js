@@ -15,16 +15,15 @@ Schema.UserState = new SimpleSchema({
 });
 
 Schema.UserProfile = new SimpleSchema({
-  nickName: {
+  nickname: {
     type: String,
     optional: true,
   },
   gender: {
-    type: String,
-    allowedValues: ['Male', 'Female'],
+    type: Number,
     optional: true,
   },
-  organization: {
+  headimgurl: {
     type: String,
     optional: true,
   },

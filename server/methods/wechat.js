@@ -17,24 +17,37 @@ const config = {
 export default function () {
   Meteor.startup(() => {
     WebApp.connectHandlers.use('/auth', (req, res, next) => {
-      // const callBackUrl = encodeURIComponent(`http://${req.headers.host}${req.originalUrl}`);
-      // console.log(callBackUrl)
       const url = client.getAuthorizeURL('http://www.100th.top/callback', '', 'snsapi_base');
       res.writeHead(302, { 'Location': url });
       res.end();
     });
 
-    // WebApp.connectHandlers.use('/', wechat(config, (req, res, next) => {
-    //   const callBackUrl = encodeURIComponent(`http://${req.headers.host}${req.originalUrl}`);
-    //   console.log(callBackUrl)
-    //   // const url = client.getAuthorizeURL('http://www.100th.top/test', '', 'snsapi_base');
-    //   // res.writeHead(302, { Location: url });
-    //   // res.end();
-    // }));
-
     WebApp.connectHandlers.use('/callback', (req, res, next) => {
-      console.log('into test');
-      console.log(req.query);
+      const code = req.query.code;
+      try {
+        client.getAccessToken(code, Meteor.bindEnvironment((err, result) => {
+          console.dir(err);
+          console.dir(result);
+          const accessToken = result.data.access_token;
+          const openid = result.data.openid;
+          const unionid = result.data.unionid;
+
+          console.log('token=' + accessToken);
+          console.log('openid=' + openid);
+          console.log('unionid=' + unionid);
+          // 只有为snsapi_userinfo时，才可以使用client.getUser，否侧返回48001
+          // client.getUser(openid, (err, result) => {
+          //   console.log(result);
+          // });
+          const call = Meteor.call('user.excited', openid);
+          api.getUser({ openid, lang: 'en' }, Meteor.bindEnvironment((err, res) => {
+            Meteor.call('user.update', res);
+          }));
+        }));
+      } catch (e) {
+        throw new Meteor.Error('webapp.use.callback.oauth', 'OAuth故障');
+      }
+
       res.writeHead(302, { 'Location': 'http://www.100th.top/test' });
       res.end();
     });
