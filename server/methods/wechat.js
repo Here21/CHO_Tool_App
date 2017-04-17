@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
+
 import wechat from 'wechat';
 import WechatAPI from 'wechat-api';
 import OAuth from 'wechat-oauth';
@@ -15,11 +16,11 @@ const config = {
 
 export default function () {
   Meteor.startup(() => {
-    WebApp.connectHandlers.use('/', (req, res, next) => {
+    WebApp.connectHandlers.use('/auth', (req, res, next) => {
       // const callBackUrl = encodeURIComponent(`http://${req.headers.host}${req.originalUrl}`);
       // console.log(callBackUrl)
-      const url = client.getAuthorizeURL('http://www.100th.top/test', '', 'snsapi_userinfo');
-      res.writeHead(302, { Location: url });
+      const url = client.getAuthorizeURL('http://www.100th.top/callback', '', 'snsapi_base');
+      res.writeHead(302, { 'Location': url });
       res.end();
     });
 
@@ -31,8 +32,11 @@ export default function () {
     //   // res.end();
     // }));
 
-    WebApp.connectHandlers.use('/test', (req, res, next) => {
+    WebApp.connectHandlers.use('/callback', (req, res, next) => {
       console.log('into test');
+      console.log(req.query);
+      res.writeHead(302, { 'Location': 'http://www.100th.top/test' });
+      res.end();
     });
 
     WebApp.connectHandlers.use('/wechat', wechat(config,

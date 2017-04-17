@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-
 import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
@@ -23,7 +21,8 @@ Meteor.startup(() => {
   render(
     <Router history={ browserHistory }>
       <Route path="/" component={ App }>
-        <IndexRoute name="index" component={ HomePageContainer } />
+        <IndexRoute name="index" component={ App } />
+        <Route path="home" component={ HomePageContainer } />
         <Route path="*" component={ NotFound } />
       </Route>
     </Router>,
