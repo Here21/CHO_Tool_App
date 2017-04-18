@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
+import cookieSession from 'cookie-session';
 
 import wechat from 'wechat';
 import WechatAPI from 'wechat-api';
@@ -22,6 +23,26 @@ export default function () {
       res.end();
     });
 
+    WebApp.connectHandlers.use(cookieSession({
+      httpOnly: false,
+      signed: false,
+      cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
+    }));
+
+    WebApp.connectHandlers.use('/test', (req, res, next) => {
+      // const url = client.getAuthorizeURL('http://www.100th.top/callback', '', 'snsapi_base');
+      console.log('111');
+      req.session.openid = '1111111111111';
+      res.writeHead(302, { 'Location': 'http://www.100th.top/home' });
+      res.end();
+    });
+
+    // WebApp.connectHandlers.use('/home', (req, res, next) => {
+    //   console.log('222');
+    //   console.log(req.session.openid);
+    //   res.end();
+    // });
+
     WebApp.connectHandlers.use('/callback', (req, res, next) => {
       const code = req.query.code;
       try {
@@ -43,11 +64,12 @@ export default function () {
           api.getUser({ openid, lang: 'en' }, Meteor.bindEnvironment((err, res) => {
             Meteor.call('user.update', res);
           }));
+
+          req.session.openid = openid;
         }));
       } catch (e) {
         throw new Meteor.Error('webapp.use.callback.oauth', 'OAuth故障');
       }
-
       res.writeHead(302, { 'Location': 'http://www.100th.top/test' });
       res.end();
     });
