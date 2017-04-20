@@ -17,11 +17,11 @@ const config = {
 
 export default function () {
   Meteor.startup(() => {
-    WebApp.connectHandlers.use('/auth', (req, res, next) => {
-      const url = client.getAuthorizeURL('http://www.100th.top/callback', '', 'snsapi_base');
-      res.writeHead(302, { 'Location': url });
-      res.end();
-    });
+    // WebApp.connectHandlers.use('/auth', (req, res, next) => {
+    //   const url = client.getAuthorizeURL('http://www.100th.top/callback', '', 'snsapi_base');
+    //   res.writeHead(302, { 'Location': url });
+    //   res.end();
+    // });
 
     WebApp.connectHandlers.use(cookieSession({
       httpOnly: false,
@@ -29,13 +29,13 @@ export default function () {
       cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
     }));
 
-    WebApp.connectHandlers.use('/test', (req, res, next) => {
-      // const url = client.getAuthorizeURL('http://www.100th.top/callback', '', 'snsapi_base');
-      console.log('111');
-      req.session.openid = '1111111111111';
-      res.writeHead(302, { 'Location': 'http://www.100th.top/home' });
-      res.end();
-    });
+    // WebApp.connectHandlers.use('/test', (req, res, next) => {
+    //   // const url = client.getAuthorizeURL('http://www.100th.top/callback', '', 'snsapi_base');
+    //   console.log('usl ----- test');
+    //   req.session = { openid: 'yuiokjnbghukyuiklmnbg' };
+    //   res.writeHead(302, { 'Location': 'http://www.100th.top/home' });
+    //   res.end();
+    // });
 
     // WebApp.connectHandlers.use('/home', (req, res, next) => {
     //   console.log('222');
@@ -45,32 +45,28 @@ export default function () {
 
     WebApp.connectHandlers.use('/callback', (req, res, next) => {
       const code = req.query.code;
-      try {
-        client.getAccessToken(code, Meteor.bindEnvironment((err, result) => {
-          console.dir(err);
-          console.dir(result);
-          const accessToken = result.data.access_token;
-          const openid = result.data.openid;
-          const unionid = result.data.unionid;
+      let openid = '';
+      client.getAccessToken(code, Meteor.bindEnvironment((err, result) => {
+        const accessToken = result.data.access_token;
+        openid = result.data.openid;
+        const unionid = result.data.unionid;
 
-          console.log('token=' + accessToken);
-          console.log('openid=' + openid);
-          console.log('unionid=' + unionid);
-          // 只有为snsapi_userinfo时，才可以使用client.getUser，否侧返回48001
-          // client.getUser(openid, (err, result) => {
-          //   console.log(result);
-          // });
-          const call = Meteor.call('user.excited', openid);
-          api.getUser({ openid, lang: 'en' }, Meteor.bindEnvironment((err, res) => {
-            Meteor.call('user.update', res);
-          }));
+        console.log('token=' + accessToken);
+        console.log('openid=' + openid);
+        // 只有为snsapi_userinfo时，才可以使用client.getUser，否侧返回48001
+        // client.getUser(openid, (err, result) => {
+        //   console.log(result);
+        // });
+        req.session = { openid: openid };
 
-          req.session.openid = openid;
+        const call = Meteor.call('user.excited', openid);
+        api.getUser({ openid, lang: 'en' }, Meteor.bindEnvironment((err, res) => {
+          Meteor.call('user.update', res);
         }));
-      } catch (e) {
-        throw new Meteor.Error('webapp.use.callback.oauth', 'OAuth故障');
-      }
-      res.writeHead(302, { 'Location': 'http://www.100th.top/test' });
+      }));
+      console.log('----openid=' + openid);
+      console.log(req.session);
+      res.writeHead(302, { 'Location': 'http://www.100th.top/home' });
       res.end();
     });
 

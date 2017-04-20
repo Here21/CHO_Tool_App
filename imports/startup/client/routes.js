@@ -3,9 +3,8 @@ import { render } from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { Meteor } from 'meteor/meteor';
 
-import App from '../../ui/layouts/App.js';
-import HomePage from '../../ui/pages/HomePage';
-import HomePageContainer from '../../ui/containers/HomePage'
+import App from '../../ui/containers/AppWrap';
+import HomePageContainer from '../../ui/containers/HomePage';
 import NotFound from '../../ui/pages/NotFound.js';
 
 const authenticate = (nextState, replace) => {
