@@ -1,13 +1,10 @@
 import { Meteor } from 'meteor/meteor';
-import { Accounts } from 'meteor/accounts-base';
 import cookieSession from 'cookie-session';
 
 import wechat from 'wechat';
-import WechatAPI from 'wechat-api';
 import OAuth from 'wechat-oauth';
 
 const client = new OAuth(Meteor.settings.public.WechatAppId, Meteor.settings.public.WechatAppSecret);
-const api = new WechatAPI(Meteor.settings.public.WechatAppId, Meteor.settings.public.WechatAppSecret);
 
 const config = {
   token: Meteor.settings.public.WechatAppToken,
@@ -17,65 +14,37 @@ const config = {
 
 export default function () {
   Meteor.startup(() => {
-    // WebApp.connectHandlers.use('/auth', (req, res, next) => {
-    //   const url = client.getAuthorizeURL('http://www.100th.top/callback', '', 'snsapi_base');
-    //   res.writeHead(302, { 'Location': url });
-    //   res.end();
-    // });
-
     WebApp.connectHandlers.use(cookieSession({
       httpOnly: false,
       signed: false,
       cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
     }));
 
-    // WebApp.connectHandlers.use('/test', (req, res, next) => {
-    //   // const url = client.getAuthorizeURL('http://www.100th.top/callback', '', 'snsapi_base');
-    //   console.log('usl ----- test');
-    //   req.session = { openid: 'yuiokjnbghukyuiklmnbg' };
-    //   res.writeHead(302, { 'Location': 'http://www.100th.top/home' });
-    //   res.end();
-    // });
-
-    // WebApp.connectHandlers.use('/home', (req, res, next) => {
-    //   console.log('222');
-    //   console.log(req.session.openid);
-    //   res.end();
-    // });
-
+    // callback 地址需要做的就是传回通过code获取的openid，其他通过api去调用
     WebApp.connectHandlers.use('/callback', (req, res, next) => {
-      const code = req.query.code;
-      let openid = '';
-      client.getAccessToken(code, Meteor.bindEnvironment((err, result) => {
-        const accessToken = result.data.access_token;
-        openid = result.data.openid;
-        const unionid = result.data.unionid;
-
-        console.log('token=' + accessToken);
-        console.log('openid=' + openid);
-        // 只有为snsapi_userinfo时，才可以使用client.getUser，否侧返回48001
-        // client.getUser(openid, (err, result) => {
-        //   console.log(result);
-        // });
-        req.session = { openid: openid };
-
-        const call = Meteor.call('user.excited', openid);
-        api.getUser({ openid, lang: 'en' }, Meteor.bindEnvironment((err, res) => {
-          Meteor.call('user.update', res);
+      if (req.session.openid) {
+        next();
+      } else {
+        const code = req.query.code;
+        client.getAccessToken(code, Meteor.bindEnvironment((err, result) => {
+          if (err) throw new Meteor.Error('client-getAccessToken-err', err.toString());
+          // TODO: save accessToken on globally
+          // const accessToken = result.data.access_token;
+          const openid = result.data.openid;
+          // 只有为snsapi_userinfo时，才可以使用client.getUser，否侧返回48001
+          // client.getUser(openid, (err, result) => {
+          //   console.log(result);
+          // });
+          req.session = { openid };
+          res.writeHead(302, { 'Location': 'http://www.100th.top/home' });
+          res.end();
         }));
-      }));
-      console.log('----openid=' + openid);
-      console.log(req.session);
-      res.writeHead(302, { 'Location': 'http://www.100th.top/home' });
-      res.end();
+      }
     });
 
     WebApp.connectHandlers.use('/wechat', wechat(config,
       wechat.text((message, req, res, next) => {
-        api.getUser({ openid: message.FromUserName, lang: 'en' }, (e, r) => {
-          console.log(r);
-          res.reply(r.nickname);
-        });
+        res.reply('收到文字');
         // message为文本内容
         // { ToUserName: 'gh_d3e07d51b513',
         // FromUserName: 'oPKu7jgOibOA-De4u8J2RuNKpZRw',
@@ -108,18 +77,9 @@ export default function () {
       })
       .event(Meteor.bindEnvironment((message, req, res, next) => {
         if (message.Event === 'subscribe') {
-          Accounts.createUser({ username: message.FromUserName, createdAt: new Date() });
           res.reply('欢迎您使用碳氢氧膳食公众号');
         }
       }))
-      // .device_text((message, req, res, next) => {
-      //   console.log(message)
-      //   // TODO
-      // })
-      // .device_event((message, req, res, next) => {
-      //   console.log(message)
-      //   // TODO
-      // })
     ));
   });
 }
