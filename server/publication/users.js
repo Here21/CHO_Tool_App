@@ -12,9 +12,4 @@ export default function () {
     //   this.ready();
     // }
   });
-
-  Meteor.publish('findUser', function (openid) {
-    check(openid, String);
-    return Meteor.users.findOne({ username: openid });
-  });
 }

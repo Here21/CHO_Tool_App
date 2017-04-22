@@ -3,7 +3,8 @@
     "WechatAppId": "wx0ccf0a1041ca40b9",
     "WechatAppSecret": "d4624c36b6795d1d99dcf0547af5443d",
     "WechatAppToken": "Martinzhz1994tokentest",
-    "InitialPassword": "cho666"
+    "InitialPassword": "cho666",
+    "inWeChat": true
   },
   "private": {
   }
