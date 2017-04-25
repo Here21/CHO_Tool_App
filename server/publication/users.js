@@ -3,13 +3,7 @@ import { check } from 'meteor/check';
 
 export default function () {
   Meteor.users.deny({ update: () => true });
-  Meteor.publish('userData', function () {
-    console.log('publish');
-    console.log(this.userId);
+  Meteor.publish('userData', () => {
     return Meteor.users.find();
-    // if (this.userId) {
-    // } else {
-    //   this.ready();
-    // }
   });
 }

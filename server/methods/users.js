@@ -1,6 +1,5 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
-// import { getUser } from './api';
 import WechatAPI from 'wechat-api';
 
 const api = new WechatAPI(Meteor.settings.public.WechatAppId, Meteor.settings.public.WechatAppSecret);
@@ -12,15 +11,18 @@ export default function () {
       check(openid, String);
       return Meteor.users.findOne({ username: openid });
     },
-    'user.update'(userInfo) {
-      check(userInfo, Object);
-      Meteor.users.update({ username: userInfo.openid },
-        { $set: {
-          username: userInfo.openid,
-          'profile.nickname': userInfo.nickname,
-          'profile.gender': userInfo.sex,
-          'profile.headimgurl': userInfo.headimgurl,
-        } }, { upsert: true });
+    'user.update'(openid) {
+      check(openid, String);
+      api.getUser(openid, Meteor.bindEnvironment((err, result) => {
+        if (err) throw new Meteor.Error('user-update-err', err.toString());
+        Meteor.users.update({ username: result.openid },
+          { $set: {
+            username: result.openid,
+            'profile.nickname': result.nickname,
+            'profile.gender': result.sex,
+            'profile.headimgurl': result.headimgurl,
+          } }, { upsert: true });
+      }));
     },
   });
 }

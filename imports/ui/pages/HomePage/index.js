@@ -4,20 +4,16 @@ import './style.scss';
 
 class HomePage extends Component {
   componentDidMount() {
-    // const redirect = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${Meteor.settings.public.WechatAppId}`
-    //   + `&redirect_uri=${encodeURIComponent(window.location.origin + window.location.pathname)}`
-    //   + '&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect';
-    // console.log(redirect);
-    // // browserHistory.replace(redirect);
-    // window.location.href = redirect;
+    console.log(this.props);
   }
 
   render() {
+    const profile = this.props.profile;
     return (
       <div className="home-page">
         <div className="home-page-userinfo">
-          <img src="apple-touch-icon-precomposed.png" alt="avatar"/>
-          <p>Martin</p>
+          <img src={profile.headimgurl} alt="avatar"/>
+          <p>{profile.nickname}</p>
         </div>
         <div>
           占位方框
@@ -25,6 +21,6 @@ class HomePage extends Component {
       </div>
     );
   }
-};
+}
 
 export default HomePage;
