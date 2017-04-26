@@ -12,7 +12,7 @@ class HomePage extends Component {
     return (
       <div className="home-page">
         <div className="home-page-userinfo">
-          <img src={profile.headimgurl} alt="avatar"/>
+          <img src='http://obd9ssud2.bkt.clouddn.com/1254217636.jpg' alt="avatar"/>
           <p>{profile.nickname}</p>
         </div>
         <div>
