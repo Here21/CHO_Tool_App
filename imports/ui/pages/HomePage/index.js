@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
+import PropTypes from 'prop-types';
+import FunctionCard from '../../components/FunctionCard';
 import './style.scss';
 
 class HomePage extends Component {
@@ -12,15 +13,27 @@ class HomePage extends Component {
     return (
       <div className="home-page">
         <div className="home-page-userinfo">
-          <img src='http://obd9ssud2.bkt.clouddn.com/1254217636.jpg' alt="avatar"/>
+          <img src={profile.headimgurl} alt="avatar"/>
           <p>{profile.nickname}</p>
         </div>
         <div>
-          占位方框
+          <FunctionCard
+            img="http://op99wrlxr.bkt.clouddn.com/image/icons/hot.png"
+            title="每日提醒"
+            content={
+              <div>
+                我爱你兄弟
+              </div>
+            }
+          />
         </div>
       </div>
     );
   }
 }
+
+HomePage.propTypes = {
+  profile: PropTypes.object,
+};
 
 export default HomePage;

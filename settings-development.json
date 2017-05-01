@@ -4,7 +4,7 @@
     "WechatAppSecret": "d4624c36b6795d1d99dcf0547af5443d",
     "WechatAppToken": "Martinzhz1994tokentest",
     "InitialPassword": "cho666",
-    "inWeChat": true
+    "inWeChat": false
   },
   "private": {
   }

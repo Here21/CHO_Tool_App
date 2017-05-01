@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { composeWithTracker } from 'react-komposer';
+import Loading from '../components/Loading.js';
 
 import HomePage from '../pages/HomePage';
 
@@ -12,4 +13,4 @@ const composer = ({ params }, onData) => {
   }
 };
 
-export default composeWithTracker(composer)(HomePage);
+export default composeWithTracker(composer, Loading)(HomePage);
