@@ -3,7 +3,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { Base64 } from 'meteor/base64';
 import { EJSON } from 'meteor/ejson';
 import { composeWithTracker } from 'react-komposer';
-import Loading from '../components/Loading.js';
+import Loading from '../components/Loading';
 import { getCookie } from '../../modules/lib/cookies';
 import App from '../layouts/App';
 

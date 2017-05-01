@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { composeWithTracker } from 'react-komposer';
-import Loading from '../components/Loading.js';
+import Loading from '../components/Loading';
 
 import HomePage from '../pages/HomePage';
 
