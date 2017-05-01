@@ -21,6 +21,7 @@ export default function () {
             'profile.nickname': result.nickname,
             'profile.gender': result.sex,
             'profile.headimgurl': result.headimgurl,
+            'profile.state': { type: '月餐', state: '正常' },
           } }, { upsert: true });
       }));
     },
