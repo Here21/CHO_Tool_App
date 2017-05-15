@@ -1,7 +1,7 @@
 import React from 'react';
 import Loaders from 'react-loaders';
 import 'loaders.css/src/animations/pacman.scss';
-import './style.scss'
+import './style.scss';
 
 const Loader = Loaders.Loader;
 
