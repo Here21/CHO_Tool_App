@@ -5,16 +5,17 @@ import { Meteor } from 'meteor/meteor';
 
 import App from '../../ui/containers/AppWrap';
 import HomePageContainer from '../../ui/containers/HomePage';
+import BodyData from '../../ui/containers/BodyData';
 import NotFound from '../../ui/pages/NotFound.js';
 
-const authenticate = (nextState, replace) => {
-  if (!Meteor.loggingIn() && !Meteor.userId()) {
-    replace({
-      pathname: '/login',
-      state: { nextPathname: nextState.location.pathname },
-    });
-  }
-};
+// const authenticate = (nextState, replace) => {
+//   if (!Meteor.loggingIn() && !Meteor.userId()) {
+//     replace({
+//       pathname: '/login',
+//       state: { nextPathname: nextState.location.pathname },
+//     });
+//   }
+// };
 
 Meteor.startup(() => {
   render(
@@ -22,6 +23,7 @@ Meteor.startup(() => {
       <Route path="/" component={ App }>
         <IndexRoute name="index" component={ App } />
         <Route path="home" component={ HomePageContainer } />
+        <Route path="body" component={ BodyData } />
         <Route path="*" component={ NotFound } />
       </Route>
     </Router>,
