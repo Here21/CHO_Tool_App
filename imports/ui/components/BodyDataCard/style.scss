@@ -1,0 +1,20 @@
+.body-data-card {
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 9rem;
+  padding: 8px;
+  border-radius: 3px;
+  margin: 8px 0;
+
+  p {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .data-card-content {
+    display: flex;
+    justify-content: space-around
+  }
+}
