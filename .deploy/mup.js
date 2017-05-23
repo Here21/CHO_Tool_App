@@ -40,7 +40,7 @@ module.exports = {
     // for your app to start
     // Add 30 seconds if the server has 512mb of ram
     // And 30 more if you have binary npm dependencies.
-    deployCheckWaitTime: 60,
+    deployCheckWaitTime: 120,
 
     // Show progress bar while uploading bundle to server
     // You might need to disable it on CI servers

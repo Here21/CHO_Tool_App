@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import BodyDataCard from '../../components/BodyDataCard';
 
 import './style.scss';
@@ -12,7 +13,7 @@ class BodyData extends Component {
           <div className="shadow">
             <img src="" alt=""/>
           </div>
-          <button>添加计划</button>
+          <Link to="/body/form"><button>添加计划</button></Link>
         </div>
         <BodyDataCard />
         <BodyDataCard />

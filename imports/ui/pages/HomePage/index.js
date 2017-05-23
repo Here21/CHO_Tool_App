@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import FunctionCard from '../../components/FunctionCard';
 import './style.scss';
 
@@ -41,7 +42,7 @@ class HomePage extends Component {
               </div>
             }
             extra={
-              <button className="extra-button">添加记录</button>
+              <Link to="/body"><button className="extra-button">添加记录</button></Link>
             }
           />
           <FunctionCard

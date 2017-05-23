@@ -9,7 +9,7 @@ import HomePage from '../pages/HomePage';
 const composer = ({ params }, onData) => {
   const currentUser = Meteor.user();
   const tips = Meteor.subscribe('tips.list');
-  if (currentUser && !tips.ready()) {
+  if (currentUser && tips.ready()) {
     const tip = Tips.find().fetch();
     Meteor.call('user.update', currentUser.username);
     onData(null, { currentUser, tip });

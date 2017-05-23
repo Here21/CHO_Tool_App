@@ -1,19 +1,14 @@
 {
-  "name": "application-name",
+  "name": "CHO",
   "version": "1.0.0",
-  "description": "Application description.",
+  "description": "碳氢氧身体管理工具.",
   "scripts": {
-    "start": "meteor --settings settings-development.json",
-    "test": "meteor test --driver-package practicalmeteor:mocha --port 5000",
-    "chimp-watch": "chimp --ddp=http://localhost:3000 --watch --mocha --path=tests",
-    "chimp-test": "chimp --ddp=http://localhost:3000 --mocha --path=tests",
-    "staging": "meteor deploy staging.meteor.com --settings settings-development.json",
-    "production": "meteor deploy production.meteor.com --settings settings-production.json"
+    "start": "meteor --settings settings-development.json"
   },
   "devDependencies": {
     "chimp": "^0.41.2",
     "eslint": "^3.8.1",
-    "eslint-conig-airbnb": "^12.0.0",
+    "eslint-config-airbnb": "^12.0.0",
     "eslint-plugin-import": "^1.16.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-meteor": "^4.0.1",
@@ -62,9 +57,9 @@
     }
   },
   "dependencies": {
-    "antd": "^2.9.3",
     "babel-runtime": "^6.18.0",
     "bcrypt": "^0.8.7",
+    "cookie-session": "^2.0.0-beta.1",
     "loaders.css": "^0.1.2",
     "normalize.css": "^6.0.0",
     "prop-types": "^15.5.6",
