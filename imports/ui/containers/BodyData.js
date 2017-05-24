@@ -2,19 +2,18 @@ import { Meteor } from 'meteor/meteor';
 import { composeWithTracker } from 'react-komposer';
 import Loading from '../components/Loading';
 
-// import Tips from '../../api/documents/collections/tips';
+import BodyData from '../../api/documents/collections/bodyData';
 
-import BodyData from '../pages/BodyData';
+import BodyDataPage from '../pages/BodyData';
 
 const composer = ({ params }, onData) => {
-  // const currentUser = Meteor.user();
-  // const tips = Meteor.subscribe('tips.list');
-  // if (currentUser && !tips.ready()) {
-  //   const tip = Tips.find().fetch();
-  //   Meteor.call('user.update', currentUser.username);
-  //   onData(null, { currentUser, tip });
-  // }
+  const currentUser = Meteor.user();
+  const bodyData = Meteor.subscribe('bodyData.isExisted', currentUser._id);
+  if (currentUser && !bodyData.ready()) {
+    const bodyDatas = BodyData.find().fetch();
+    onData(null, { currentUser, bodyDatas });
+  }
   onData(null, {});
 };
 
-export default composeWithTracker(composer, Loading)(BodyData);
+export default composeWithTracker(composer, Loading)(BodyDataPage);

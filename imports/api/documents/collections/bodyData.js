@@ -23,7 +23,7 @@ const Datas = new SimpleSchema({
 });
 
 BodyData.schema = new SimpleSchema({
-  username: {
+  userId: {
     type: String,
   },
   gender: {

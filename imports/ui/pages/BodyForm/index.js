@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
+import PropTypes from 'prop-types';
 import './style.scss';
 
 class BodyData extends Component {
@@ -8,25 +9,27 @@ class BodyData extends Component {
     this.state = {
       age: '',
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
     const data = {
-      username: 'tesetestesset',
+      userId: this.props.currentUser._id,
       gender: e.target.gender.value,
-      datas: {
+      datas: [{
         stature: parseFloat(e.target.stature.value),
         weight: parseFloat(e.target.weight.value),
         type: parseFloat(e.target.type.value),
-      },
+      }],
     };
 
-    // Meteor.call('bodydata.first', data);
-    Meteor.call('bodydata.add', data.datas);
+    Meteor.call('bodydata.first', data);
+    // Meteor.call('bodydata.add', data.datas);
   }
 
   render() {
+    console.log(this.props);
     return (
       <div className="body-form-page">
         <div className="top-part">
@@ -105,5 +108,10 @@ class BodyData extends Component {
     );
   }
 }
+
+BodyData.propTypes = {
+  currentUser: PropTypes.object,
+};
+
 
 export default BodyData;

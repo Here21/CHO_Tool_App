@@ -10,7 +10,7 @@ export default function () {
       const userid = Meteor.userId();
       if (userid) {
         BodyData.insert({
-          username: data.username,
+          userId: data.userId,
           gender: data.gender,
           datas: data.datas,
         });
