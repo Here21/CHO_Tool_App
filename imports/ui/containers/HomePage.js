@@ -11,7 +11,9 @@ const composer = ({ params }, onData) => {
   const tips = Meteor.subscribe('tips.list');
   if (currentUser && tips.ready()) {
     const tip = Tips.find().fetch();
-    Meteor.call('user.update', currentUser.username);
+    if (Meteor.settings.public.inWeChat) {
+      Meteor.call('user.update', currentUser.username);
+    }
     onData(null, { currentUser, tip });
   }
 };

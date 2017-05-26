@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
+import { browserHistory } from 'react-router';
+
 import './style.scss';
 
 class BodyData extends Component {
@@ -15,7 +17,7 @@ class BodyData extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const data = {
-      userId: this.props.currentUser._id,
+      userId: this.props.userId,
       gender: e.target.gender.value,
       datas: [{
         stature: parseFloat(e.target.stature.value),
@@ -23,9 +25,17 @@ class BodyData extends Component {
         type: parseFloat(e.target.type.value),
       }],
     };
-
-    Meteor.call('bodydata.first', data);
-    // Meteor.call('bodydata.add', data.datas);
+    if (!this.props.existed) {
+      Meteor.call('bodydata.first', data, (err) => {
+        if (err) throw new Meteor.Error('body-data-insert-err', err.toString());
+        browserHistory.push('/body');
+      });
+      return;
+    }
+    Meteor.call('bodydata.add', { userId: this.props.userId, datas: data.datas[0] }, (err) => {
+      if (err) throw new Meteor.Error('body-data-insert-err', err.toString());
+      browserHistory.push('/body');
+    });
   }
 
   render() {
@@ -110,7 +120,8 @@ class BodyData extends Component {
 }
 
 BodyData.propTypes = {
-  currentUser: PropTypes.object,
+  userId: PropTypes.string,
+  existed: PropTypes.object,
 };
 
 

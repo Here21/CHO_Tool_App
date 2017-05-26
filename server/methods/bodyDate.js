@@ -16,12 +16,12 @@ export default function () {
         });
       }
     },
-    'bodydata.add'(data) {
-      check(data, Object);
-      console.log(data);
+    'bodydata.add'(values) {
+      check(values, Object);
+      console.log(values);
       const userid = Meteor.userId();
       if (userid) {
-        BodyData.update({ username: 'tesetestesset' }, { $push: { datas: data } });
+        BodyData.update({ userId: values.userId }, { $push: { datas: values.datas } });
       }
     },
   });

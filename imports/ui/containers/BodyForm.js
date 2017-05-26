@@ -7,11 +7,11 @@ import BodyData from '../../api/documents/collections/bodyData';
 
 
 const composer = ({ params }, onData) => {
-  const currentUser = Meteor.user();
-  const bodyData = Meteor.subscribe('bodyData.isExisted', currentUser._id);
-  if (currentUser && !bodyData.ready()) {
-    const existed = BodyData.findOne({ userId: currentUser._id });
-    onData(null, { currentUser, existed });
+  const userId = Meteor.userId();
+  const bodyData = Meteor.subscribe('bodyData.isExisted', userId);
+  if (bodyData.ready()) {
+    const existed = BodyData.findOne({ userId });
+    onData(null, { existed, userId });
   }
   // onData(null, {});
 };

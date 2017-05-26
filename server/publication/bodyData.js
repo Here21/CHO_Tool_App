@@ -7,6 +7,6 @@ export default function () {
   Meteor.publish('bodyData.isExisted', (userId) => {
     check(userId, String);
     console.log(userId);
-    return BodyData.findOne({ userId });
+    return BodyData.find();
   });
 }
