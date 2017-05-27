@@ -1,9 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { RouteTransition } from 'react-router-transition'
+
 
 const App = ({ children }) => (
-  <div>
+  <div className="app-wrap">
+    <RouteTransition
+      pathname={location.pathname}
+      atEnter={{ opacity: 0 }}
+      atLeave={{ opacity: 0 }}
+      atActive={{ opacity: 1 }}
+    >
     { children }
+    </RouteTransition>
   </div>
 );
 

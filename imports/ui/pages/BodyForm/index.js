@@ -9,7 +9,7 @@ class BodyData extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      age: '',
+      ageErr: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -38,6 +38,15 @@ class BodyData extends Component {
     });
   }
 
+  integerValidator(value) {
+    const integer = /^[1-9]{2}$/;
+    return integer.test(value);
+  }
+  floatPointValidator(value) {
+    const floatPoint = /^[1-9]\d.\d$/;
+    return floatPoint.test(value);
+  }
+
   render() {
     console.log(this.props);
     return (
@@ -51,7 +60,7 @@ class BodyData extends Component {
           <div className="form-select">
             <div>
               <label htmlFor="gender">性别</label>
-              <span>（不可修改！）</span>
+              <span>不可修改！</span>
             </div>
             <select
               id="gender"
@@ -64,52 +73,66 @@ class BodyData extends Component {
           <div className="form-input">
             <div>
               <label htmlFor="age">年龄</label>
-              <span>（输入数字即可）</span>
+              <span>只输入数字即可</span>
             </div>
             <input
               id="age"
               name="age"
-              placeholder="24"
-              onChange={(v) => { console.log(v.target.value); }}
+              type="number"
+              pattern="\d*"
+              onChange={() => {
+                this.state.ageErr && this.setState({ ageErr: false });
+              }}
+              onBlur={(v) => {
+                !this.integerValidator(v.target.value) &&
+                  this.setState({
+                    ageErr: true,
+                  });
+              }}
             />
+            {
+              this.state.ageErr ? <p style={{ color: 'red', fontSize: '12px' }}>年龄输入格式错误</p> : ''
+            }
           </div>
           <div className="form-input">
             <div>
-              <label htmlFor="stature">身高</label>
-              <span>（影响计算不可修改！）</span>
+              <label htmlFor="stature">身高(CM)</label>
+              <span>影响计算不可修改！</span>
             </div>
             <input
               id="stature"
               name="stature"
-              onChange={() => {}}
+              type="number"
+              onChange={() => { console.log(this.state.ageErr); }}
             />
           </div>
           <div className="form-input">
             <div>
-              <label htmlFor="weight">体重</label>
-              <span>（影响计算关键数据！）</span>
+              <label htmlFor="weight">体重(KG)</label>
+              <span>影响计算关键数据！</span>
             </div>
             <input
               id="weight"
               name="weight"
+              type="number"
               onChange={() => {}}
             />
           </div>
           <div className="form-select">
             <div>
               <label htmlFor="type">运动类型</label>
-              <span>（影响计算关键数据！）</span>
+              <span>影响计算关键数据！</span>
             </div>
             <select
               id="type"
               name="type"
               className="over-length"
             >
-              <option value="1.2">白领、学生很少或者不运动</option>
-              <option value="1.3">偶尔运动或者逛街，每周大约少量运动1~3次</option>
-              <option value="1.5">有持续运动习惯，或是会上健身房，每周运动3~5次</option>
-              <option value="1.7">运动狂热，每周运动6~7次或是工作量大</option>
-              <option value="1.9">工作或生活作息需要大量劳动，相当消耗能量</option>
+              <option value="1.2">很少或者不运动</option>
+              <option value="1.3">每周大约少量运动1~3次</option>
+              <option value="1.5">有持续运动习惯，每周运动3~5次</option>
+              <option value="1.7">运动狂热，每周运动6~7次</option>
+              <option value="1.9">健身狂热、现役运动员等每天消耗大量能量</option>
             </select>
           </div>
           <button type="submit">完成</button>
