@@ -9,7 +9,9 @@ class BodyData extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ageErr: '',
+      ageErr: false,
+      statureErr: false,
+      weightErr: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -38,12 +40,16 @@ class BodyData extends Component {
     });
   }
 
-  integerValidator(value) {
+  ageValidator(value) {
     const integer = /^[1-9]{2}$/;
     return integer.test(value);
   }
+  statureValidator(value) {
+    const integer = /^[1-9]{2,3}$/;
+    return integer.test(value);
+  }
   floatPointValidator(value) {
-    const floatPoint = /^[1-9]\d.\d$/;
+    const floatPoint = /^[1-9]\d|[1-9]\d.\d$/;
     return floatPoint.test(value);
   }
 
@@ -84,7 +90,7 @@ class BodyData extends Component {
                 this.state.ageErr && this.setState({ ageErr: false });
               }}
               onBlur={(v) => {
-                !this.integerValidator(v.target.value) &&
+                !this.ageValidator(v.target.value) &&
                   this.setState({
                     ageErr: true,
                   });
@@ -103,8 +109,19 @@ class BodyData extends Component {
               id="stature"
               name="stature"
               type="number"
-              onChange={() => { console.log(this.state.ageErr); }}
+              onChange={() => {
+                this.state.statureErr && this.setState({ statureErr: false });
+              }}
+              onBlur={(v) => {
+                !this.statureValidator(v.target.value) &&
+                this.setState({
+                  statureErr: true,
+                });
+              }}
             />
+            {
+              this.state.statureErr ? <p style={{ color: 'red', fontSize: '12px' }}>身高输入格式错误</p> : ''
+            }
           </div>
           <div className="form-input">
             <div>
@@ -115,8 +132,19 @@ class BodyData extends Component {
               id="weight"
               name="weight"
               type="number"
-              onChange={() => {}}
+              onChange={() => {
+                this.state.weightErr && this.setState({ weightErr: false });
+              }}
+              onBlur={(v) => {
+                !this.floatPointValidator(v.target.value) &&
+                this.setState({
+                  weightErr: true,
+                });
+              }}
             />
+            {
+              this.state.weightErr ? <p style={{ color: 'red', fontSize: '12px' }}>体重输入格式错误</p> : ''
+            }
           </div>
           <div className="form-select">
             <div>
