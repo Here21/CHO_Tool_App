@@ -11,7 +11,7 @@ class BodyData extends Component {
     this.state = {
       ageErr: false,
       statureErr: false,
-      weightErr: false
+      weightErr: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -163,7 +163,12 @@ class BodyData extends Component {
               <option value="1.9">健身狂热、现役运动员等每天消耗大量能量</option>
             </select>
           </div>
-          <button type="submit">完成</button>
+          <button
+            type="submit"
+            disabled={!this.state.weightErr && !this.state.ageErr && !this.state.statureErr}
+          >
+            完成
+          </button>
         </form>
       </div>
     );
