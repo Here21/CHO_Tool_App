@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
+import Alert from 'react-s-alert';
 
 import './style.scss';
 
@@ -19,24 +20,51 @@ class BodyData extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const data = {
-      userId: this.props.userId,
-      gender: e.target.gender.value,
-      datas: [{
-        stature: parseFloat(e.target.stature.value),
-        weight: parseFloat(e.target.weight.value),
-        type: parseFloat(e.target.type.value),
-      }],
-    };
     if (!this.props.existed) {
-      Meteor.call('bodydata.first', data, (err) => {
-        if (err) throw new Meteor.Error('body-data-insert-err', err.toString());
+      Meteor.call('bodydata.first', {
+        userId: this.props.userId,
+        gender: e.target.gender.value,
+        datas: [{
+          stature: parseFloat(e.target.stature.value),
+          weight: parseFloat(e.target.weight.value),
+          type: parseFloat(e.target.type.value),
+        }],
+      }, (err) => {
+        if (err) {
+          Alert.warning('录入失败！请重试', {
+            position: 'top',
+            effect: 'slide',
+            timeout: 3000,
+          });
+          throw new Meteor.Error('body-data-insert-err', err.toString());
+        }
+        Alert.success('添加成功！添加数据越多，计算越准确', {
+          position: 'top',
+          effect: 'slide',
+          timeout: 3000,
+        });
         browserHistory.push('/body');
       });
       return;
     }
-    Meteor.call('bodydata.add', { userId: this.props.userId, datas: data.datas[0] }, (err) => {
-      if (err) throw new Meteor.Error('body-data-insert-err', err.toString());
+    Meteor.call('bodydata.add', {
+      userId: this.props.userId,
+      weight: parseFloat(e.target.weight.value),
+      type: parseFloat(e.target.type.value),
+    }, (err) => {
+      if (err) {
+        Alert.warning('录入失败！请重试', {
+          position: 'top',
+          effect: 'slide',
+          timeout: 3000,
+        });
+        throw new Meteor.Error('body-data-insert-err', err.toString());
+      }
+      Alert.success('添加成功！添加数据越多，计算越准确', {
+        position: 'top',
+        effect: 'slide',
+        timeout: 3000,
+      });
       browserHistory.push('/body');
     });
   }
@@ -51,8 +79,6 @@ class BodyData extends Component {
   }
   floatPointValidator(value) {
     const floatPoint = /^[1-9]\d|[1-9]\d.\d$/;
-    console.log(floatPoint);
-    console.log(floatPoint.test(value))
     return floatPoint.test(value);
   }
 
@@ -186,7 +212,11 @@ class BodyData extends Component {
               !this.state.ageErr &&
               !this.state.statureErr ? '' : 'submit-disabled'
             }
-            disabled={!this.state.weightErr && !this.state.ageErr && !this.state.statureErr && false}
+            disabled={
+              !this.state.weightErr &&
+              !this.state.ageErr &&
+              !this.state.statureErr && false
+            }
           >
             完成
           </button>
