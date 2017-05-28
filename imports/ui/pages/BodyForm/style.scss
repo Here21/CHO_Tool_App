@@ -93,5 +93,9 @@
       font-size: 18px;
       margin-top: 1rem;
     }
+    .submit-disabled {
+      border: 3px solid #333;
+      background-color: #b6b6b6;
+    }
   }
 }

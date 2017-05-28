@@ -9,6 +9,7 @@ class BodyData extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      readySubmit: false,
       ageErr: false,
       statureErr: false,
       weightErr: false,
@@ -45,16 +46,18 @@ class BodyData extends Component {
     return integer.test(value);
   }
   statureValidator(value) {
-    const integer = /^[1-9]{2,3}$/;
+    const integer = /^([1-9]{2,3})$/;
     return integer.test(value);
   }
   floatPointValidator(value) {
     const floatPoint = /^[1-9]\d|[1-9]\d.\d$/;
+    console.log(floatPoint);
+    console.log(floatPoint.test(value))
     return floatPoint.test(value);
   }
 
   render() {
-    console.log(this.props);
+    console.log(this.state);
     return (
       <div className="body-form-page">
         <div className="top-part">
@@ -90,7 +93,10 @@ class BodyData extends Component {
                 this.state.ageErr && this.setState({ ageErr: false });
               }}
               onBlur={(v) => {
-                !this.ageValidator(v.target.value) &&
+                this.ageValidator(v.target.value) ?
+                  this.setState({
+                    ageErr: false,
+                  }) :
                   this.setState({
                     ageErr: true,
                   });
@@ -113,10 +119,13 @@ class BodyData extends Component {
                 this.state.statureErr && this.setState({ statureErr: false });
               }}
               onBlur={(v) => {
-                !this.statureValidator(v.target.value) &&
-                this.setState({
-                  statureErr: true,
-                });
+                this.statureValidator(v.target.value) ?
+                  this.setState({
+                    statureErr: false,
+                  }) :
+                  this.setState({
+                    statureErr: true,
+                  });
               }}
             />
             {
@@ -132,14 +141,20 @@ class BodyData extends Component {
               id="weight"
               name="weight"
               type="number"
+              step="0.1"
               onChange={() => {
                 this.state.weightErr && this.setState({ weightErr: false });
               }}
               onBlur={(v) => {
-                !this.floatPointValidator(v.target.value) &&
-                this.setState({
-                  weightErr: true,
-                });
+                this.floatPointValidator(v.target.value) ?
+                  this.setState({
+                    weightErr: false,
+                    readySubmit: true,
+                  }) :
+                  this.setState({
+                    weightErr: true,
+                    readySubmit: true,
+                  });
               }}
             />
             {
@@ -165,7 +180,13 @@ class BodyData extends Component {
           </div>
           <button
             type="submit"
-            disabled={!this.state.weightErr && !this.state.ageErr && !this.state.statureErr}
+            className={
+              this.state.readySubmit &&
+              !this.state.weightErr &&
+              !this.state.ageErr &&
+              !this.state.statureErr ? '' : 'submit-disabled'
+            }
+            disabled={!this.state.weightErr && !this.state.ageErr && !this.state.statureErr && false}
           >
             完成
           </button>
