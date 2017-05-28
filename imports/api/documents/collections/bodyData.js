@@ -15,6 +15,14 @@ const Datas = new SimpleSchema({
     optional: true,
     decimal: true,
   },
+  createdAt: {
+    type: Date,
+    autoValue: function() {
+      if (this.isUpdate) {
+        return new Date();
+      }
+    },
+  },
 });
 
 BodyData.schema = new SimpleSchema({
@@ -22,6 +30,10 @@ BodyData.schema = new SimpleSchema({
     type: String,
   },
   gender: {
+    type: Number,
+    optional: true,
+  },
+  age: {
     type: Number,
     optional: true,
   },

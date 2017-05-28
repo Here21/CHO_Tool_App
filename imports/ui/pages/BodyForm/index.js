@@ -24,8 +24,9 @@ class BodyForm extends Component {
       Meteor.call('bodydata.first', {
         userId: this.props.userId,
         gender: e.target.gender.value,
+        age: e.target.age.value,
+        stature: parseFloat(e.target.stature.value),
         datas: [{
-          stature: parseFloat(e.target.stature.value),
           weight: parseFloat(e.target.weight.value),
           type: parseFloat(e.target.type.value),
         }],
@@ -70,20 +71,21 @@ class BodyForm extends Component {
   }
 
   ageValidator(value) {
-    const integer = /^[1-9]{2}$/;
+    const integer = /^[1-9][0-9]$/;
     return integer.test(value);
   }
+
   statureValidator(value) {
-    const integer = /^([1-9]{2,3})$/;
+    const integer = /^[1-9]\d{2}$/;
     return integer.test(value);
   }
+
   floatPointValidator(value) {
     const floatPoint = /^[1-9]\d|[1-9]\d.\d$/;
     return floatPoint.test(value);
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className="body-form-page">
         <div className="top-part">
