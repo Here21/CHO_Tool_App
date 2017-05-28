@@ -6,7 +6,7 @@ import Alert from 'react-s-alert';
 
 import './style.scss';
 
-class BodyData extends Component {
+class BodyForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -226,10 +226,10 @@ class BodyData extends Component {
   }
 }
 
-BodyData.propTypes = {
+BodyForm.propTypes = {
   userId: PropTypes.string,
   existed: PropTypes.object,
 };
 
 
-export default BodyData;
+export default BodyForm;

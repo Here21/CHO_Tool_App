@@ -15,11 +15,6 @@ const Datas = new SimpleSchema({
     optional: true,
     decimal: true,
   },
-  stature: {
-    type: Number,
-    optional: true,
-    decimal: true,
-  },
 });
 
 BodyData.schema = new SimpleSchema({
@@ -29,6 +24,11 @@ BodyData.schema = new SimpleSchema({
   gender: {
     type: Number,
     optional: true,
+  },
+  stature: {
+    type: Number,
+    optional: true,
+    decimal: true,
   },
   datas: {
     type: [Datas],

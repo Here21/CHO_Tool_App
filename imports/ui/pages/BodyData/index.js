@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import BodyDataCard from '../../components/BodyDataCard';
 
@@ -7,6 +8,7 @@ import './style.scss';
 
 class BodyData extends Component {
   render() {
+    console.log(this.props.myData);
     return (
       <div className="body-page">
         <div className="top-part">
@@ -16,12 +18,14 @@ class BodyData extends Component {
           <Link to="/body/form"><button>添加计划</button></Link>
         </div>
         <BodyDataCard />
-        <BodyDataCard />
-        <BodyDataCard />
-        <BodyDataCard />
       </div>
     );
   }
 }
+
+
+BodyData.propTypes = {
+  myData: PropTypes.object,
+};
 
 export default BodyData;
