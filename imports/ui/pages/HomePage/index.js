@@ -7,15 +7,13 @@ import './style.scss';
 
 class HomePage extends Component {
   componentDidMount() {
-    // console.log(this.props);
-  }
-  addPlan() {
-    // console.log(this.props.currentUser);
-    Meteor.call('plans.change', this.props.currentUser.username);
   }
 
+  // addPlan() {
+  //   Meteor.call('plans.change', this.props.currentUser.username);
+  // }
+
   render() {
-    console.log(this.props);
     const user = this.props.currentUser;
     return (
       <div className="home-page">
@@ -56,7 +54,7 @@ class HomePage extends Component {
               </div>
             }
             extra={
-              <button className="extra-button" onClick={this.addPlan.bind(this)}>修改计划</button>
+              <button className="extra-button">修改计划</button>
             }
           />
         </div>
