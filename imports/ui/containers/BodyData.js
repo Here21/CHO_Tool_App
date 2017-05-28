@@ -10,12 +10,18 @@ const composer = ({ params }, onData) => {
   if (bodyData.ready()) {
     const myData = BodyData.findOne({ userId: Meteor.userId() });
     if (myData) {
-      const weight = myData.datas[-1].weight;
       const stature = myData.stature;
       const age = myData.age;
       const gender = myData.gender;
-      const bmr = BMR(weight, stature, age, gender);
-      console.log(bmr);
+      // {...[{},{},{}]}
+      const test = myData.datas.map((value) => {
+        return {
+          weight: value.weight,
+          type: value.type,
+          bmr: BMR(value.weight, stature, age, gender).toFixed(2),
+        };
+      })
+      console.log(test);
     }
     onData(null, { myData });
   }
