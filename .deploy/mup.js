@@ -5,7 +5,7 @@ module.exports = {
       host: '47.92.29.165',
       username: 'root',
       // pem: './path/to/pem'
-      password: 'Insp1rat10n'
+      // password:
       // or neither for authenticate from ssh-agent
     }
   },
