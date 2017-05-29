@@ -17,7 +17,11 @@ class BodyData extends Component {
           </div>
           <Link to="/body/form"><button>添加计划</button></Link>
         </div>
-        <BodyDataCard />
+        {
+          this.props.myData.map(data =>
+            <BodyDataCard key={data.date} date={data.date} weight={data.weight} type={data.type} BMR={data.bmr} />
+          )
+        }
       </div>
     );
   }
@@ -25,7 +29,7 @@ class BodyData extends Component {
 
 
 BodyData.propTypes = {
-  myData: PropTypes.object,
+  myData: PropTypes.array,
 };
 
 export default BodyData;

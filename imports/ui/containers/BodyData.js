@@ -14,16 +14,18 @@ const composer = ({ params }, onData) => {
       const age = myData.age;
       const gender = myData.gender;
       // {...[{},{},{}]}
-      const test = myData.datas.map((value) => {
+      const datas = myData.datas.map((value) => {
         return {
+          date: value.createdAt,
           weight: value.weight,
           type: value.type,
-          bmr: BMR(value.weight, stature, age, gender).toFixed(2),
+          bmr: parseFloat(BMR(value.weight, stature, age, gender).toFixed(2)),
         };
-      })
-      console.log(test);
+      });
+      onData(null, { myData: datas });
+      return;
     }
-    onData(null, { myData });
+    onData(null, { myData: [] });
   }
 };
 
