@@ -8,7 +8,6 @@ import './style.scss';
 
 class BodyData extends Component {
   render() {
-    console.log(this.props.myData);
     return (
       <div className="body-page">
         <div className="top-part">

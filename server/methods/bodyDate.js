@@ -20,7 +20,7 @@ export default function () {
     },
     'bodydata.add'(values) {
       check(values, Object);
-      console.log(values);
+      // console.log(values);
       const userid = Meteor.userId();
       if (userid) {
         BodyData.update({ userId: values.userId }, { $push: { datas: {
