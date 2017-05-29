@@ -26,7 +26,7 @@ module.exports = {
     env: {
       // TODO: Change to your app's url
       // If you are using ssl, it needs to start with https://
-      PORT: 80,
+      PORT: 3000,
       ROOT_URL: 'http://www.hiyingyang.com',
       MONGO_URL: 'mongodb://localhost/meteor',
     },

@@ -31,12 +31,8 @@ export default function () {
           // TODO: save accessToken on globally
           // const accessToken = result.data.access_token;
           const openid = result.data.openid;
-          // 只有为snsapi_userinfo时，才可以使用client.getUser，否侧返回48001
-          // client.getUser(openid, (err, result) => {
-          //   console.log(result);
-          // });
           req.session = { openid };
-          res.writeHead(302, { 'Location': 'http://www.100th.top/home' });
+          res.writeHead(302, { 'Location': 'http://www.hiyingyang.com/home' });
           res.end();
         }));
       }
