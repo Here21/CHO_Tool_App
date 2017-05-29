@@ -3,7 +3,7 @@ import { composeWithTracker } from 'react-komposer';
 import Loading from '../components/Loading';
 import BodyData from '../../api/documents/collections/bodyData';
 import BodyDataPage from '../pages/BodyData';
-import { BMR } from '/imports/constants/formula';
+import { BMR } from '../../constants/formula';
 
 const composer = ({ params }, onData) => {
   const bodyData = Meteor.subscribe('bodyData.isExisted', Meteor.userId());
@@ -19,7 +19,7 @@ const composer = ({ params }, onData) => {
           date: value.createdAt,
           weight: value.weight,
           type: value.type,
-          bmr: parseFloat(BMR(value.weight, stature, age, gender).toFixed(2)),
+          bmr: parseFloat(BMR(value.weight, stature, age, gender).toFixed(1)),
         };
       });
       onData(null, { myData: datas });

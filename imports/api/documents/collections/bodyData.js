@@ -18,9 +18,7 @@ const Datas = new SimpleSchema({
   createdAt: {
     type: Date,
     autoValue: function() {
-      if (this.isUpdate) {
-        return new Date();
-      }
+      return new Date();
     },
   },
 });

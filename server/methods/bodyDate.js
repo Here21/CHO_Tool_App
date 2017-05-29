@@ -6,12 +6,14 @@ export default function () {
   Meteor.methods({
     'bodydata.first'(data) {
       check(data, Object);
-      console.log(data);
+      // console.log(data);
       const userid = Meteor.userId();
       if (userid) {
         BodyData.insert({
           userId: data.userId,
           gender: data.gender,
+          age: data.age,
+          stature: data.stature,
           datas: data.datas,
         });
       }

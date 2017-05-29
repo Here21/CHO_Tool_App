@@ -24,10 +24,10 @@ class HomePage extends Component {
         <div>
           <FunctionCard
             img="http://op99wrlxr.bkt.clouddn.com/image/icons/hot.png"
-            title="每日提醒"
+            title="碳氢氧健康Tips"
             content={
-              <div>
-                我爱你兄弟
+              <div style={{ lineHeight: '20px', paddingRight: '8px' }}>
+                无论是减脂还是增肌，最重要的部分始终是调整饮食结构，因为只有科学控制摄入，才能合理体现付出
               </div>
             }
           />
@@ -35,8 +35,8 @@ class HomePage extends Component {
             img="http://op99wrlxr.bkt.clouddn.com/image/icons/form_64.png"
             title="身体数据"
             content={
-              <div>
-                功能尚未开放
+              <div style={{ lineHeight: '20px', paddingRight: '8px' }}>
+                记录数据周期最好为一周，坚持记录，计算越准确
               </div>
             }
             extra={
@@ -48,13 +48,11 @@ class HomePage extends Component {
             title="碳氢氧计划"
             content={
               <div>
-                <span style={{ marginRight: '3px', fontSize: '9px' }}>剩余</span>
-                <span style={{ fontSize: '32px', verticalAlign: 'middle' }}>31</span>
-                <span style={{ verticalAlign: 'super', fontSize: '9px' }}>次</span>
+                {/*<span style={{ marginRight: '3px', fontSize: '9px' }}>剩余</span>*/}
+                {/*<span style={{ fontSize: '32px', verticalAlign: 'middle' }}>31</span>*/}
+                {/*<span style={{ verticalAlign: 'super', fontSize: '9px' }}>次</span>*/}
+                Coming soon
               </div>
-            }
-            extra={
-              <button className="extra-button">修改计划</button>
             }
           />
         </div>

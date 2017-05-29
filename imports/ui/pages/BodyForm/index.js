@@ -86,6 +86,77 @@ class BodyForm extends Component {
   }
 
   render() {
+    if (this.props.existed) {
+      return (
+        <div className="body-form-page">
+          <div className="top-part">
+            <div className="shadow">
+              <img src="" alt=""/>
+            </div>
+          </div>
+          <form onSubmit={this.handleSubmit} className="form-content">
+            <div className="form-input">
+              <div>
+                <label htmlFor="weight">体重(KG)</label>
+                <span>影响计算关键数据！</span>
+              </div>
+              <input
+                id="weight"
+                name="weight"
+                type="number"
+                step="0.1"
+                onChange={() => {
+                  this.state.weightErr && this.setState({ weightErr: false });
+                }}
+                onBlur={(v) => {
+                  this.floatPointValidator(v.target.value) ?
+                    this.setState({
+                      weightErr: false,
+                      readySubmit: true,
+                    }) :
+                    this.setState({
+                      weightErr: true,
+                      readySubmit: false,
+                    });
+                }}
+              />
+              {
+                this.state.weightErr ? <p style={{ color: 'red', fontSize: '12px' }}>体重输入格式错误</p> : ''
+              }
+            </div>
+            <div className="form-select">
+              <div>
+                <label htmlFor="type">运动类型</label>
+                <span>影响计算关键数据！</span>
+              </div>
+              <select
+                id="type"
+                name="type"
+                className="over-length"
+              >
+                <option value="1.2">很少或者不运动</option>
+                <option value="1.3">每周大约少量运动1~3次</option>
+                <option value="1.5">有持续运动习惯，每周运动3~5次</option>
+                <option value="1.7">运动狂热，每周运动6~7次</option>
+                <option value="1.9">健身狂热、现役运动员等每天消耗大量能量</option>
+              </select>
+            </div>
+            <button
+              type="submit"
+              className={
+                this.state.readySubmit &&
+                !this.state.weightErr ? '' : 'submit-disabled'
+              }
+              disabled={
+                !this.state.weightErr && false
+              }
+            >
+              完成
+            </button>
+          </form>
+        </div>
+      );
+    }
     return (
       <div className="body-form-page">
         <div className="top-part">
@@ -181,7 +252,7 @@ class BodyForm extends Component {
                   }) :
                   this.setState({
                     weightErr: true,
-                    readySubmit: true,
+                    readySubmit: false,
                   });
               }}
             />

@@ -15,12 +15,19 @@ class BodyData extends Component {
           <div className="shadow">
             <img src="" alt=""/>
           </div>
-          <Link to="/body/form"><button>添加计划</button></Link>
+          <Link to="/body/form"><button>添加数据</button></Link>
+          <Link to="/home"><img className="back-button" src="/icons/back.png" alt="back" /></Link>
         </div>
         {
-          this.props.myData.map(data =>
-            <BodyDataCard key={data.date} date={data.date} weight={data.weight} type={data.type} BMR={data.bmr} />
-          )
+          this.props.myData.length > 0 ? this.props.myData.map(data =>
+            <BodyDataCard
+              key={data.date}
+              date={data.date}
+              weight={data.weight}
+              type={data.type}
+              BMR={data.bmr}
+            />
+          ) : <p style={{ marginTop: '60px' }}>您还没有添加数据，请先添加您的身体数据</p>
         }
       </div>
     );
