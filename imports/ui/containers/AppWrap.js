@@ -20,7 +20,7 @@ const composer = ({ params }, onData) => {
       // TODO: 将所有页面重定向到【callback】，然后返回到该页面
       // ${encodeURIComponent(window.location.origin + window.location.pathname)}`
       const redirect = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${Meteor.settings.public.WechatAppId}`
-        + '&redirect_uri=http://www.hiyangyang.com/callback&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect';
+        + '&redirect_uri=http%3A%2F%2Fwww.hiyingyang.com%2Fcallback&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect';
       if (!sess) {
         const err = new Meteor.Error('session-cookie-err');
         window.location.href = redirect;
