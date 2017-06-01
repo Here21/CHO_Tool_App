@@ -73,7 +73,7 @@ export default function () {
       })
       .event(Meteor.bindEnvironment((message, req, res, next) => {
         if (message.Event === 'subscribe') {
-          res.reply('欢迎您使用碳氢氧膳食公众号');
+          res.reply('欢迎您使用碳氢氧膳食公众号，我们致力于为每一位用户定制属于您自己的膳食计划。根据您的身体数据与生活工作类型，我们有专业的营养师团队为您定制饮食结构');
         }
       }))
     ));

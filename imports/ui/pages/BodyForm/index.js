@@ -91,7 +91,8 @@ class BodyForm extends Component {
         <div className="body-form-page">
           <div className="top-part">
             <div className="shadow">
-              <img src="" alt=""/>
+              {/*<img src="" alt=""/>*/}
+              <p>记录身体数据，我们综合分析您的变化，调整您的饮食结构，以达到最适合您当前的状态</p>
             </div>
           </div>
           <form onSubmit={this.handleSubmit} className="form-content">

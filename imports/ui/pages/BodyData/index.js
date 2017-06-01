@@ -12,7 +12,8 @@ class BodyData extends Component {
       <div className="body-page">
         <div className="top-part">
           <div className="shadow">
-            <img src="" alt=""/>
+            {/*<img src="http://op99wrlxr.bkt.clouddn.com/image/images/female.jpg" alt=""/>*/}
+            <p>“坚持给你自信”</p>
           </div>
           <Link to="/body/form"><button>添加数据</button></Link>
           <Link to="/home"><img className="back-button" src="/icons/back.png" alt="back" /></Link>

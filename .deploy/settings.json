@@ -1,9 +1,10 @@
 {
   "public": {
     "WechatAppId": "wx298bd94be52f9f46",
-    "WechatAppSecret": "0f5e7e62e9bfa5e75160e90ba27ec9f3",
-    "WechatAppToken": "Martinzhz1994tokenCHO",
+    "WechatAppSecret": "1cbe2119fe3a163016aa49521033dd07",
+    "WechatAppToken": "CHOToolWeChatAppbyMartin2017",
+    "EncodingAESKey": "9e63a1wwpocd2Msg1KWnj26whieFL8LXojnBnu5Z7DX",
     "InitialPassword": "cho666",
-    "inWeChat": false
+    "inWeChat": true
   }
 }
