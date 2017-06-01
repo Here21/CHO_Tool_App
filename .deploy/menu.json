@@ -1,0 +1,14 @@
+{
+  "button": [
+    {
+      "type": "view",
+      "name": "碳氢氧商城",
+      "url": "http://www.wemart.cn/mobile/?chanId=110&sellerId=10357&a=shelf&m=index"
+    },
+    {
+      "type": "view",
+      "name": "个人中心",
+      "url": "http://www.hiyingyang.com/home"
+    }
+  ]
+}
